@@ -50,3 +50,14 @@ repos:
       entry: checkov -d . --config-file .config/checkov/.checkov.yaml --framework terraform,cloudformation
       files: \.(yaml|yml|json|tf|hcl)$
     - id: checkov_secrets
+
+
+## CFN Guard checks
+- repo: https://github.com/aws-cloudformation/cloudformation-guard
+  rev: 93348197f08c2b5ab1e0fb31a31833285d2d4fe3 # pre-commit v0.0.2
+  hooks:
+    - id: cfn-guard
+      args:
+        - --operation=validate # Specify the validate operation
+        - --rules=.config/cfn-guard/ # Rules directory
+      files: cloudformation/.* # Directory to watch for changes and validate againstc;ear
